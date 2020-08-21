@@ -1,0 +1,187 @@
+
+
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no">
+
+	<title>Корзина</title>
+
+
+	<!-- PLUGINS -->
+
+	<script src="libs/jquery/jquery-1.11.0.min.js"></script>
+
+	<!-- fancybox -->
+	<link href="libs/fancybox/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />		
+	<script src="libs/fancybox/jquery.fancybox.min.js"></script>
+
+	<!-- formstyler -->
+	<link href="libs/formstyler/jquery.formstyler.css" rel="stylesheet" type="text/css" />
+	<script src="libs/formstyler/jquery.formstyler.js"></script>	
+
+	<script src="libs/iosslider/jquery.iosslider.min.js"></script>
+	<script src="libs/maskedinput/jquery.maskedinput.min.js"></script>
+
+	<script src="libs/cookie/jquery.cookie.js"></script>
+	
+	<script src="libs/isotope/isotope.pkgd.min.js"></script>	
+
+	<!-- SITE SCRIPT -->
+
+	<script src="js/common.js"></script>
+
+
+	<!-- SITE STYLE -->
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&amp;subset=cyrillic-ext" rel="stylesheet"> 
+	<link href="fonts/museosans.css" rel="stylesheet" type="text/css" />
+	<link href="css/default.css" rel="stylesheet" type="text/css" />
+
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-WB4NF79');</script>
+	<!-- End Google Tag Manager -->
+</head>
+
+<body>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WB4NF79"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<div class="cbc">
+	
+		<header class="header not-nav">
+			<div class="container header__wrap">
+				<div class="header__logo">
+					<div class="logo"><a href="index.html"><img src="images/logo.svg" alt="" /></a></div>
+				</div>
+				<div class="header__right">
+					
+					<div class="h-contacts">
+						<div class="h-contacts__ttl h-contacts__ttl_sm">Ежедневно с 9:00 до 23:00</div>
+						<div class="h-contacts__val phone_num" data-phone="+7 777 033 23 19">+7 777 033 23 19</div>
+					</div>
+					<a href="https://www.instagram.com/naruto_sushi.shymkent/" class="h-inst" target="_blank"><img src="images/icon-inst.svg" alt="" /></a>
+				</div>
+			</div>
+		</header>
+
+
+
+
+		<div class="container page-content">
+			<h1 class="title-h2">Корзина</h1>
+
+						<div class="cart-empty show ">
+				<div class="cart-empty__wrap">
+					<h3 class="title-h3">Корзина пуста</h3>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="test"></div>
+		
+		<footer class="footer">
+			<div class="container">
+				<div class="f-logo"><img src="images/logo.svg" alt="" /></div>
+
+				<div class="footer__right">
+					
+					<div class="h-contacts">
+						<div class="h-contacts__ttl h-contacts__ttl_sm">Ежедневно с 10:00 до 00:00</div>
+						<div class="h-contacts__val phone_num" data-phone="+7 777 033 23 19">+7 777 033 23 19</div>
+					</div>
+					<a href="https://www.instagram.com/naruto_sushi.shymkent/" class="h-inst" target="_blank"><img src="images/icon-inst.svg" alt="" /></a>
+
+					
+
+				</div>
+			</div>
+		</footer>
+	</div>
+
+
+	<span class="sendReport"></span>
+
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function spaceRemove(str) {
+			return str.replace(/\s/g, '');
+		}
+
+		$('.cart-item__remove').on('click', function () {
+			var card = $(this).closest('.cart-item');
+			var count = parseInt( card.find('.counter__text').val() );
+			var price = parseInt( spaceRemove( card.find('.cart-item__price').text() ) );
+			var id = card.data('id');
+			var name = card.find('.cart-item__title').text();
+			
+			window.dataLayer.push ({
+				"ecommerce": {
+					"remove": {
+						"products": [
+							{
+								"id": id,
+								"name": name,
+								"price": price,
+								"quantity": count
+							}
+						]
+					}
+				}
+			});
+
+			console.log( window.dataLayer );
+		});
+		
+		$('.sendReport').on('click', function () {
+			var i = 0;
+			var cards = [];
+
+			$('.counter input[type="text"]').each(function () {
+
+				var card = $(this).closest('.cart-item');
+				var count = parseInt( card.find('.counter__text').val() );
+				var price = parseInt( spaceRemove( card.find('.cart-item__price').text() ) );
+				var id = card.data('id');
+				var name = card.find('.cart-item__title').text();
+				
+				cards[i] = {
+					"id": id,
+					"name": name,
+					"price": price,
+					"quantity": count
+				};
+				
+				i++;
+			});
+			
+			
+			window.dataLayer.push ({
+				"ecommerce": {
+					"purchase": {
+						"actionField": {
+							"id" : "TRX0001"
+						},
+						"products": cards
+					}
+				}
+			});
+		});
+	</script>
+
+
+
+</body>
+
+</html>

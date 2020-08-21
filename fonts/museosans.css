@@ -1,0 +1,10 @@
+
+@font-face {
+    font-family: 'Museo Sans Black';
+    src: url('museosans-black.eot') format('eot'),
+         url('museosans-black.woff') format('woff'),
+         url('museosans-black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
